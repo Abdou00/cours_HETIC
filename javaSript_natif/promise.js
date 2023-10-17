@@ -10,15 +10,15 @@
  * 
  * result: initialement à "undefined" se change en "value" quand
  * "resolve(value)"est appelé ou en "error" quand "reject(error)" est appelé */
-// let promise = new Promise((resolve, reject) => {
+// let promise = new Promise((resolve, reject) => { state: pending
 //     // 1. L'executeur est appélé automatiquement et immédiatement (avec new Promise)
 //     // 2. L'executeur reçoit ses 2 argument (resolve et reject)
 //     setTimeout(() => {
-//         resolve('done')
+//         resolve('done') state: fulfilled
 //     }, 2000);
 //     // 3. Après 2 seconde de traitement l'executeur appel le callback pour produire le résultat. Cela va changé l'état de l'objet promise.
 //     setTimeout(() => {
-//         reject(new Error('Ouppps'))
+//         reject(new Error('Ouppps')) // state: rejected
 //     }, 1000);
 // });
 /**
