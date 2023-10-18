@@ -164,9 +164,11 @@ Avec le résultat de l’appel de cette fonction, créer une nouvelle image qui 
 //     // return new Promise((resolve, reject) => setTimeout(resolve, ms))
 // }
   
-// delay(3000).then(
-//     () => alert('runs after 3 seconds')
-// );
+// delay(3000) // delay => promise
+//     .then( // then => consomeur
+//         () => alert('runs after 3 seconds') // handler
+//     )
+//     .catch()
 
 /**
  * 
@@ -174,17 +176,17 @@ Avec le résultat de l’appel de cette fonction, créer une nouvelle image qui 
  * Utilisez Promise.resolve(value) pour créer une promesse qui se résoudra avec la valeur 3.
  * @returns {Promise<3>}
  */
-function makePromiseResolveWith3(){
-    /* IMPLEMENT ME! */
+// function makePromiseResolveWith3(){
+//     /* IMPLEMENT ME! */
 
-    return Promise.resolve(3);
+//     return Promise.resolve(3);
 
-    // return new Promise(
-    //     (resolve, reject) => {
-    //         resolve(3)
-    //     }
-    // )
-}
+//     // return new Promise(
+//     //     (resolve, reject) => {
+//     //         resolve(3)
+//     //     }
+//     // )
+// }
 
 /**
  * 
@@ -237,17 +239,17 @@ function makePromiseResolveWith3(){
  * @param {thunk} action
  * 
  */
-function waitForPromise(promise, action){
-    /* IMPLEMENT ME */
-    return new Promise(resolve => setTimeout(resolve(promise().then(action)), 1000));
-}
-waitForPromise(makePromiseResolveWith3, (res) => res)
-    .then(
-        (result) => {
-            console.log(result);
-        }
-    )
-    .catch((err) => console.log(err))
+// function waitForPromise(promise, action){
+//     /* IMPLEMENT ME */
+//     return new Promise(resolve => setTimeout(resolve(promise().then(action)), 1000));
+// }
+// waitForPromise(makePromiseResolveWith3, (res) => res)
+//     .then(
+//         (result) => {
+//             // console.log(result);
+//         }
+//     )
+//     .catch((err) => console.log(err))
 
 /**
  * 
@@ -263,13 +265,163 @@ waitForPromise(makePromiseResolveWith3, (res) => res)
  * @param {handler} handler 
  * @return array|boolean
  */
-function consumePromise(promise, consumer, handler){
-    /* IMPLEMENT ME! */
-    return new Promise(
-        (resolve, reject) => {
-            resolve(promise().then(consumer))
-            reject(handler)
-        }
-    );
+// function consumePromise(promise, consumer, handler){
+//     /* IMPLEMENT ME! */
+//     promise()
+//         .then(
+//             (data) => {
+//                 consumer(data)
+//             }
+//         )
+//         .catch(
+//             (err) => {
+//                 handler(err)
+//             }
+//         )
+// }
+
+// consumePromise(makePromiseResolveWith3, console.log, console.error)
+
+/**
+ * Définir un objet 'member' (membre) avec les attributs 'id' (identifiant), 'name' (nom) et
+ * 'grade' et une méthode 'toString' personnalisée. Créer un objet 'team' qui contient des
+ * membres. Créer une instance de 'team' et y ajouter des membres. Afficher les membres de
+ * 'team' en utilisant la fonction 'toString' de 'member'.
+ */
+// class Member {
+//     constructor(id, name, grade) {
+//         this.id = id;
+//         this.name = name;
+//         this.grade = grade;
+//         this.toString = () => {
+//             return "ID: " + this.id + ", Name: " + this.name + " Grade: " + this.grade;
+//         }
+//     }
+// }
+// class Team extends Member {
+//     constructor() {
+//         this.members = [];
+//         super()
+//     }
+
+//     addMember(member) {
+//         this.members.push(member)
+//     }
+// }
+
+// function member(id, name, grade) {
+//     this.id       = id;
+//     this.name     = name;
+//     this.grade    = grade;
+//     this.toString = function() {
+//       return "ID: "+this.id+", Name: "+this.name+", Grade: "+this.grade;
+//     }
+// }
+   
+// function team() {
+//     this.members  = new Array();
+//     this.add      = function(member) {
+//       var index           = this.members.length;
+//       this.members[index] = member;
+//       return index;
+//     }
+//     this.toString = function() {
+//       return this.members.join("\\n");
+//     }
+// }
+// let myTeam = new team();
+// myTeam.add(new member(1, "samba", "grade"))
+// myTeam.add(new member(2, "diara", "grade Z"))
+// document.write(myTeam)
+// member.prototype.toString = () => {}
+
+// Au chargement de la page, dimensionner la fenêtre à une largeur de 600 pixels et une hauteur de 500 pixels.
+let width = window.innerWidth;
+let height = window.innerHeight;
+
+let width2 = window.outerWidth;
+let height2 = window.outerHeight;
+
+function init() {
+    window.resizeTo(600, 500);
+    console.log(width + "       " + height);
+    console.log(width2 + "       " + height2);
 }
-consumePromise
+// Ajouter un bouton appelant une fonction déplaçant la fenêtre en 50, 50.
+function deplace() {
+    window.moveTo(50, 50)
+    console.log(width + "       " + height);
+    console.log(width2 + "       " + height2);
+}
+// Ajouter un bouton appelant une fonction déplaçant la fenêtre de 50, 50 par rapport à la position courante.
+function deplace_relatif() {
+    window.moveBy(50, 50)
+    console.log(width + "       " + height);
+    console.log(width2 + "       " + height2);
+}
+// Ajouter un bouton appelant une fonction diminuant la hauteur de la fenêtre de 100 pixels, et augmentant la largeur de 100 pixels.
+function resize() {
+    window.resizeBy(100, -100)
+    console.log(width + "       " + height);
+    console.log(width2 + "       " + height2);
+}
+// Au chargement de la page, lancer la fonction Init(). Cette fonction :
+// Identifie les éléments span et paragraphes porteurs d'identifiants ;
+// Cache les deux paragraphes ;
+// Affecte à un mouseover sur les span la fonction masqueAffiche avec une méthode addEventListener (addEventListener("mouseover", masqueAffiche, false);).
+// La fonction masqueAffiche affiche l'un ou l'autre des paragraphes.
+// function init() {
+//     const pf = document.getElementsByTagName('p')
+//     const span = document.getElementsByTagName('span')
+
+//     const idpf = []
+//     const spans = []
+
+//     for (let index = 0; index < pf.length; index++) {
+//         const element = pf[index];
+//         if (element.id) {
+//             element.style.visibility = 'hidden'
+//             idpf.push(element)
+//         }
+//     }
+
+//     for (let index = 0; index < spans.length; index++) {
+//         const element = spans[index];
+//         if (element.id) {
+//             element.addEventListener('mouseenter',  () => {
+//                 masqueAffiche(idpf[i])
+//             })
+//         }
+//     }
+// }
+
+function init() {
+    let span1 = document.getElementById('mContenu1')
+    let span2 = document.getElementById('mContenu2')
+    let p1 = document.getElementById('contenu1')
+    let p2 = document.getElementById('contenu2')
+
+    p1.style.display = 'none'
+    p2.style.display = 'none'
+
+    span1.addEventListener('mouseover', masqueAffiche, false)
+    span2.addEventListener('mouseover', masqueAffiche, false)
+}
+
+function masqueAffiche(event) {
+    let tabs = document.querySelectorAll('p[id]')
+    for (let i=0;i<tabs.length;i++) tabs[i].style.display="none";
+    console.log("c"+this.id.substr(2));
+    document.getElementById("c"+this.id.substr(2)).style.display="block";
+}
+
+/**
+ * Constructeur sans valeur par défaut
+Déclarez un nouvel objet test, basé sur le prototype Test. Cet objet :
+possède une propriété privée nommée ajout, égale à 4 ;
+possède une méthode publique affiche, qui affiche l'addition de la variable ajout avec le contenu du champ de saisie.
+Tester en essayant d'accéder à la valeur d'ajout depuis l'extérieur de la définition de l'objet.
+
+ */
+// Constructeur avec valeurs par défaut
+// Modifiez le code précédent de manière à ce que Test prenne comme argument l'identifiant du champ à lire d'une part, et la valeur de laquelle il faut augmenter le contenu du champ de saisie d'autre part. Les valeurs par défaut doivent être respectivement "champSaisie" et 4.
